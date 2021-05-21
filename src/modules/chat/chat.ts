@@ -5,7 +5,7 @@ export const chatList = async () => {
     const {
       data,
     } = await Axios.get("http://test.vanillabridge.com/test_data");
-    return JSON.parse(data);
+    return data;
   } catch (e) {
     throw new Error("서버에서 데이터를 가져오는데 실패했습니다.");
   }
