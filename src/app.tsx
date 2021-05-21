@@ -3,13 +3,13 @@ import React, {
   Fragment,
 } from "react";
 import {
-  MainTemplate,
+  Main,
 } from "src/components/pages";
 
 export const App: FC = () => {
   return (
     <Fragment>
-      <MainTemplate />
+      <Main />
     </Fragment>
   );
 }
