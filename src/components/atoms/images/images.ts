@@ -5,6 +5,10 @@ export const ChatProfileImage = styled.img`
   height: 30px;
   display: block;
   border-radius: 10px;
+
+  div[data-sent="true"] > & {
+    display: none;
+  }
 `;
 
 export const ChatContextImage = styled.img`
