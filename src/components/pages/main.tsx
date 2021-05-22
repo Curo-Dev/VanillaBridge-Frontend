@@ -1,19 +1,18 @@
 import React, {
   FC,
-  useState,
-  useLayoutEffect,
 } from "react";
 import styled from "styled-components";
 import {
   MainTemplate,
 } from "src/components/templates"
-import { chatList } from "src/modules";
+// import { chatList } from "src/modules";
 
 const MainBlock = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #222222;
 `;
 
