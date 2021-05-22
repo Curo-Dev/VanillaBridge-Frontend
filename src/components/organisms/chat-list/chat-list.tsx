@@ -12,6 +12,7 @@ type ChatListProps = {
 }
 
 const ChatListBlock = styled.div`
+  margin: 20px 10px;
   overflow-y: auto;
 `;
 
@@ -20,8 +21,9 @@ export const ChatList: FC<ChatListProps> = ({
 }) => {
   return (
     <ChatListBlock>
-      {chats.map((chat, index) => {
+      {chats.map((chat, index) => (
         <ChatItem
+          id={chat.id}
           user_id={chat.user_id}
           user_name={chat.user_name}
           created_at={chat.created_at}
@@ -29,7 +31,7 @@ export const ChatList: FC<ChatListProps> = ({
           msg={chat.msg}
           key={index}
           />
-      })}
+      ))}
     </ChatListBlock>
   );
 };
