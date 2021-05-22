@@ -1,9 +1,12 @@
 import React, {
   FC,
 } from "react";
-import styled from "styled-components";
+import styled, {
+  css
+} from "styled-components";
 import {
   ChatProfileImage,
+  ChatContextImage,
   ChatItemTitle,
 } from "src/components/atoms";
 
@@ -19,8 +22,36 @@ export type ChatItemProps = {
   }
 };
 
-const ChatItemBlock = styled.div`
+
+type ChatItemBlockProps = {
+  isMe: boolean;
+};
+
+const ChatItemBlock = styled.div<ChatItemBlockProps>`
   display: flex;
+  
+  ${props => props.isMe && css`
+    flex-direction: row-reverse;
+    img {
+      display: none;
+    }
+    div {
+      margin: 0;
+
+      span {
+        visibility: hidden;
+      }
+
+      div {
+        background-color: #8A74FF;
+        color: white;
+
+        img {
+          display: block;
+        }
+      }
+    }
+  `}
 `;
 
 const ChatItemContentBox = styled.div`
@@ -34,8 +65,10 @@ const ChatItemContentBox = styled.div`
 const ChatItemChatBox = styled.div`
   width: auto;
   height: auto;
+  max-width: 200px;
   display: flex;
   background-color: white;
+  box-shadow: 1px 1px 1px #d2d2d2;
   font-size: 14px;
   font-weight: 500;
   border-radius: 12px;
@@ -52,7 +85,7 @@ export const ChatItem: FC<ChatItemProps> = ({
 }) => {
   
   return (
-    <ChatItemBlock >
+    <ChatItemBlock isMe={user_id == 2} >
       <ChatProfileImage src={photo_url} alt="" />
       <ChatItemContentBox>
         <ChatItemTitle>{user_name}</ChatItemTitle>
@@ -60,6 +93,7 @@ export const ChatItem: FC<ChatItemProps> = ({
           {msg.content && msg.content.split("\\n").map(x => {
             return <>{x} <br /></>;
           })}
+          {msg.mtype === "photo" && <ChatContextImage src={photo_url} alt="" />}
         </ChatItemChatBox>
       </ChatItemContentBox>
 
