@@ -5,8 +5,16 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import {
-  ChatList
+  ChatList,
 } from "src/components/organisms";
+import {
+  ChatItemProps,
+} from "src/components/molecules";
+
+type MainTemplateProps = {
+  title: string;
+  chats: ChatItemProps[];
+}
 
 const MainTemplateBlock = styled.div`
   width: 320px;
@@ -17,11 +25,13 @@ const MainTemplateBlock = styled.div`
   border-radius: 15px;
 `;
 
-export const MainTemplate: FC = () => {
-  
+export const MainTemplate: FC<MainTemplateProps> = ({
+  title,
+  chats,
+}) => {
   return (
     <MainTemplateBlock>
-      <ChatList chats={[]} />
+      <ChatList chats={chats} />
     </MainTemplateBlock>
   );
 };
