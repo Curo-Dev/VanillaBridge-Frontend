@@ -111,7 +111,7 @@ export const ChatItem: FC<ChatItemProps> = ({
             {msg.content && msg.content.split("\\n").map(x => {
               return <>{x} <br /></>;
             })}
-            {msg.mtype === "photo" && <ChatContextImage src={photo_url} alt="" />}
+            {msg.mtype === "photo" && <ChatContextImage src={"https://imgur.com/lfH8tyf.png"} alt="잘생긴 사진은 너굴맨이 처리했으니 안심하라구!" />}
           </ChatItemContext>
           <ChatTimeTitle>
             {date.format("A h:mm")}
