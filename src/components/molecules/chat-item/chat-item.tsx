@@ -1,6 +1,8 @@
 import React, {
   FC,
+  useEffect,
   useRef,
+  useState,
 } from "react";
 import styled from "styled-components";
 import {
@@ -9,6 +11,10 @@ import {
   ChatItemTitle,
   ChatTimeTitle,
 } from "src/components/atoms";
+
+import {
+  CopyToClipboard
+} from 'react-copy-to-clipboard';
 import dayjs from "dayjs";
 import 'dayjs/locale/ko' 
 
@@ -86,19 +92,45 @@ export const ChatItem: FC<ChatItemProps> = ({
   msg,
   created_at,
 }) => {
+  const [isClick, setClick] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const date = dayjs(created_at);
 
+  useEffect(() => {
+    const onOutSideClick = (event: MouseEvent) => {
+      const node = event.target as Node;
+      
+      if (!imgRef.current?.contains(node)) {
+        imgRef.current.style.width = "30px";
+        imgRef.current.style.height = "30px";
+        imgRef.current.style.margin = null;
+        imgRef.current.style.top = null;
+        imgRef.current.style.bottom = null;
+        imgRef.current.style.position = null;
+      }
+    };
+    if (isClick) {     
+      document.addEventListener("mousedown", onOutSideClick);
+    } else {
+      document.removeEventListener("mousedown", onOutSideClick);
+    }
+  }, [isClick])
+
   const onProfileClick = () => {
     if(imgRef.current != null) {
-      imgRef.current.appendChild(new HTMLImageElement())
+      imgRef.current.style.width = "300px";
+      imgRef.current.style.height = "300px";
+      imgRef.current.style.margin = "auto";
+      imgRef.current.style.top = "50%";
+      imgRef.current.style.bottom = "50%";
+      imgRef.current.style.position = "absolute";
+      setClick(true);
     }
   }
 
   return (
+    <CopyToClipboard text={msg.content}>
     <ChatItemBlock data-sent={user_id === 2} >
-      <ChatProfileModal 
-        src={photo_url} />
       <ChatProfileImage
         ref={imgRef}
         onClick={onProfileClick}
@@ -108,9 +140,11 @@ export const ChatItem: FC<ChatItemProps> = ({
         <ChatItemTitle>{user_name}</ChatItemTitle>
         <ChatItemChatBox>
           <ChatItemContext>
-            {msg.content && msg.content.split("\\n").map(x => {
-              return <>{x} <br /></>;
-            })}
+
+              {msg.content && msg.content.split("\\n").map(x => {
+                return <>{x} <br /></>;
+              })}
+
             {msg.mtype === "photo" && <ChatContextImage src={"https://imgur.com/lfH8tyf.png"} alt="잘생긴 사진은 너굴맨이 처리했으니 안심하라구!" />}
           </ChatItemContext>
           <ChatTimeTitle>
@@ -119,5 +153,6 @@ export const ChatItem: FC<ChatItemProps> = ({
         </ChatItemChatBox>
       </ChatItemBox>
     </ChatItemBlock>
+    </CopyToClipboard>
   );
 };
