@@ -4,6 +4,8 @@ import React, {
 import styled from "styled-components";
 import {
   ChatList,
+  ChatBox,
+  Header,
 } from "src/components/organisms";
 import {
   ChatItemProps,
@@ -18,9 +20,9 @@ const MainTemplateBlock = styled.div`
   width: 320px;
   height: 720px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background-color: #F6F6F8;
-  border-radius: 15px;
 `;
 
 export const MainTemplate: FC<MainTemplateProps> = ({
@@ -29,7 +31,9 @@ export const MainTemplate: FC<MainTemplateProps> = ({
 }) => {
   return (
     <MainTemplateBlock>
+      <Header />
       <ChatList chats={chats} />
+      <ChatBox />
     </MainTemplateBlock>
   );
 };
