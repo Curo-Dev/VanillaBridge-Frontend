@@ -18,8 +18,8 @@ type ChatListProps = {
 
 const ChatListBlock = styled.div`
   width: 100%;
-  height: auto;
-  margin: 20px 10px;
+  height: 100%;
+  padding: 20px 10px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -64,15 +64,17 @@ export const ChatList: FC<ChatListProps> = ({
                 </ChatDateTitle>
               </ChatDateBox>
             }
-            <ChatItem
-              id={chat.id}
-              user_id={chat.user_id}
-              user_name={chat.user_name}
-              created_at={chat.created_at}
-              photo_url={chat.photo_url}
-              msg={chat.msg}
-              key={index}
-              />
+
+
+              <ChatItem
+                id={chat.id}
+                user_id={chat.user_id}
+                user_name={chat.user_name}
+                created_at={chat.created_at}
+                photo_url={chat.photo_url}
+                msg={chat.msg}
+                key={index}
+                />
           </>
         )
       })}
