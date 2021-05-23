@@ -1,7 +1,6 @@
 import React, {
   FC,
   useLayoutEffect,
-  useRef,
 } from "react";
 import styled from "styled-components";
 import {
@@ -37,16 +36,14 @@ const ChatDateBox = styled.div`
 export const ChatList: FC<ChatListProps> = ({
   chats
 }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if(scrollRef.current != null)  {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    let scroll = document.getElementById("scroll");
+    scroll.scrollTop = scroll.scrollHeight;
   }, [chats])
 
   return (
-    <ChatListBlock ref={scrollRef}>
+    <ChatListBlock id={"scroll"}>
       {chats.map((chat, index) => { // 개인적으로 fromEntities 이용해서 Object 안에 넣고 Key 값 돌리고 싶은데 PASS!
         let [prevDate] = index === 0 ? [""] : chats[index - 1].created_at.split(" "); 
         let [date] = chat.created_at.split(" ");

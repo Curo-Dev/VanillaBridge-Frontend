@@ -5,11 +5,14 @@ import React, {
 import {
   MainPage,
 } from "src/components/pages";
+import {
+  CoreProvider
+} from "src/modules";
 
 export const App: FC = () => {
   return (
-    <Fragment>
+    <CoreProvider>
       <MainPage />
-    </Fragment>
+    </CoreProvider>
   );
 }

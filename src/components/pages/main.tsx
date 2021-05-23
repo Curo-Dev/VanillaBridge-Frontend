@@ -2,6 +2,7 @@ import React, {
   FC,
   useLayoutEffect,
   useState,
+  useContext,
 } from "react";
 import styled from "styled-components";
 import {
@@ -12,6 +13,7 @@ import {
 } from "src/components/molecules";
 import {
   chatList,
+  CoreContext,
 } from "src/modules";
 
 const MainBlock = styled.div`
@@ -24,7 +26,10 @@ const MainBlock = styled.div`
 `;
 
 export const MainPage: FC = () => {
-  const [chat, setChat] = useState<ChatItemProps[]>([]);
+  const {
+    setChat,
+    chats
+  } = useContext(CoreContext)
 
   useLayoutEffect(() => {
     const loadChat = async () => {
@@ -32,14 +37,15 @@ export const MainPage: FC = () => {
     };
     
     loadChat()
-
+    console.log("LOAD CHAT");
+    
   }, []);
 
-  chat.sort((x, y) => {
+  chats.sort((x, y) => {
     return x.id < y.id ? -1 : x.id > y.id ? 1 : 0;
   });
 
-  chat.sort((x, y) => {
+  chats.sort((x, y) => {
     const xd: any = new Date(x.created_at);
     const yd: any = new Date(y.created_at);
     return xd - yd;
@@ -48,7 +54,7 @@ export const MainPage: FC = () => {
 
   return (
     <MainBlock>
-      <MainTemplate title={"test"} chats={chat}/>
+      <MainTemplate title={"test"} chats={chats}/>
     </MainBlock>
   );
 };
