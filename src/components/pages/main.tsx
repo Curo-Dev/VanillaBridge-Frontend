@@ -36,9 +36,7 @@ export const MainPage: FC = () => {
       setChat(await chatList());
     };
     
-    loadChat()
-    console.log("LOAD CHAT");
-    
+    loadChat();
   }, []);
 
   chats.sort((x, y) => {
